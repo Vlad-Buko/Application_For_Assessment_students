@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+
+<h2>Table students</h2>
+
+<table id="students">
+
+</table>
+
+
+<button onclick="searchByLogin()">Search by Login</button>
+<script>
+    function searchByLogin() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText);
+            }
+        };
+        xhttp.open("GET", "http://localhost:8080/students/findAll", true);
+        xhttp.send();
+    }
+</script>
+</body>
+</html>
