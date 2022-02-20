@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dedede;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #8383e0;
+        }
+    </style>
+</head>
+<body>
+
+<table id="table_name">
+
+</table>
+
+<form action="#">
+    <input id="student_name" placeholder="Student name">
+    <input id="student_lastName" placeholder="Student Last name">
+    <input id="student_score" placeholder="Student score">
+    <button onclick="createStudent()">Create Student</button>
+    <button onclick="randomChooseStudent()">Random</button>
+</form>
+
+<script>
+    function createStudent() {
+        var studentName = document.getElementById("student_name").value;
+        var studentLastName = document.getElementById("student_lastName").value;
+        var studentScore = document.getElementById("student_score").value;
+
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("POST", "http://localhost:8080/students/save");
+        xmlhttp.setRequestHeader("Content-Type", "application/json");
+        xmlhttp.send(JSON.stringify({name: studentName, lastName: studentLastName, score: studentScore}));
+
+        loadStudents();
+    }
+
+    function loadStudents() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var students = JSON.parse(this.responseText);
+                var html = '<tr>\n' +
+                    '    <th>Student id</th>\n' +
+                    '    <th>Name</th>\n' +
+                    '    <th>Last Name</th>\n' +
+                    '    <th>Score</th>\n' +
+                    '    <th></th>\n' +
+                    '    </tr>';
+                for (var i = 0; i < students.length; i++) {
+                    var student = students[i];
+                    console.log(student);
+                    html = html + '<tr>' +
+                        '           <td>' + student.id + '</td>' +
+                        '           <td>' + student.name + '</td>\n' +
+                        '           <td>' + student.lastName + '</td>\n' +
+                        '           <td>' + student.score + '</td>\n' +
+                        '           <td><button onclick="deleteStudent(' + student.id + ')">Delete</button></td>';
+                }
+                document.getElementById("table_name").innerHTML = html;
+            }
+        };
+        xhttp.open("GET", "http://localhost:8080/students/findAll", true);
+        xhttp.send();
+    }
+    function deleteStudent(studentId) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("DELETE", "http://localhost:8080/students/delete/" + studentId, true);
+        xhttp.send();
+    }
+
+    function randomChooseStudent() {
+        let num = Math.random() * (max - min) + min;
+        //где min и max - минимальное и максимальное число необходимого диапазона
+        document.getElementById("id").innerHTML = num;
+        //где id - это id элемента, в который нужно вставить получившееся число
+    }
+    loadStudents();
+</script>
+</body>
+</html>
