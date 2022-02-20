@@ -6,11 +6,12 @@ import com.andersen.project.exception.ValidationException;
 import java.util.List;
 
 public interface StudentsService {
-    StudentsDto saveStudent(StudentsDto studentsDto) throws ValidationException;
 
-    void deleteStudent(Integer studentId);
+    StudentsDto saveStudents(StudentsDto studentsDto) throws ValidationException;
 
-    StudentsDto findByName(String lastName);
+    void deleteStudent(Integer studentsId);
+
+    StudentsDto findByLastName(String lastName);
 
     List<StudentsDto> findAll();
 }
