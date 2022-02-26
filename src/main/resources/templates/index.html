@@ -84,6 +84,7 @@
     }
 
     function randomChooseStudent() {
+        var max = document.getElementById("sts")
         let num = Math.random() * (max - min) + min;
         //где min и max - минимальное и максимальное число необходимого диапазона
         document.getElementById("id").innerHTML = num;
