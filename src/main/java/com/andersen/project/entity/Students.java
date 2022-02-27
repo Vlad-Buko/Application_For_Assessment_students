@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name = "table_name")
+@Table(name = "students")
 @NoArgsConstructor
 public class Students {
 
@@ -22,4 +22,8 @@ public class Students {
 
     @Column(name = "score")
     private String score;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_student")
+    private Team team;
 }
