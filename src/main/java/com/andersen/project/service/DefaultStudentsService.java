@@ -40,14 +40,6 @@ public class DefaultStudentsService implements StudentsService {
         studentsRepository.deleteById(studentsId);
     }
 
-    @Override
-    public StudentsDto findByLastName(String lastName) {
-        Students students = studentsRepository.findByLastName(lastName);
-        if (students != null) {
-            return studentsConverter.fromStudentsToStudentsDto(students);
-        }
-        return null;
-    }
 
     @Override
     public List<StudentsDto> findAll() {

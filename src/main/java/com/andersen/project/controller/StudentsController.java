@@ -21,26 +21,20 @@ public class StudentsController {
     @PostMapping("/save")
     public StudentsDto saveStudent(@RequestBody StudentsDto studentsDto) throws
             ValidationException {
-        log.info("Handling one" + studentsDto);
+        log.info("Handling save - " + studentsDto);
         return studentsService.saveStudents(studentsDto);
     }
 
     @GetMapping("/findAll")
     public List<StudentsDto> findAllStudents() {
-        log.info("Handling two");
+        log.info("Handling find *** ");
         return studentsService.findAll();
-    }
-
-    @GetMapping("/findByLogin")
-    public StudentsDto findByLAstName(@RequestParam String lastName) {
-        log.info("Handling two" + lastName);
-        return studentsService.findByLastName(lastName);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteStudents(@PathVariable Integer id)
     {
-        log.info("Handling tree" + id);
+        log.info("Handling delete - " + id);
         studentsService.deleteStudent(id);
         return ResponseEntity.ok().build();
     }

@@ -23,7 +23,7 @@
 </head>
 <body>
 
-<table id="table_name">
+<table id="students">
 
 </table>
 
@@ -71,7 +71,7 @@
                         '           <td>' + student.score + '</td>\n' +
                         '           <td><button onclick="deleteStudent(' + student.id + ')">Delete</button></td>';
                 }
-                document.getElementById("table_name").innerHTML = html;
+                document.getElementById("students").innerHTML = html;
             }
         };
         xhttp.open("GET", "http://localhost:8080/students/findAll", true);
