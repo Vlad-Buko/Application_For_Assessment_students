@@ -11,7 +11,5 @@ public interface StudentsService {
 
     void deleteStudent(Integer studentsId);
 
-    StudentsDto findByLastName(String lastName);
-
     List<StudentsDto> findAll();
 }
