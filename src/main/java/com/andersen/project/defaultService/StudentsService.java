@@ -1,5 +1,6 @@
-package com.andersen.project.service;
+package com.andersen.project.defaultService;
 
+import com.andersen.project.converter.StudentsConverter;
 import com.andersen.project.dto.StudentsDto;
 import com.andersen.project.entity.Students;
 import com.andersen.project.exception.ValidationException;
@@ -14,7 +15,7 @@ import static java.util.Objects.isNull;
 
 @Service
 @AllArgsConstructor
-public class DefaultStudentsService implements StudentsService {
+public class StudentsService implements com.andersen.project.service.StudentsService {
     private final StudentsRepository studentsRepository;
     private final StudentsConverter studentsConverter;
 
