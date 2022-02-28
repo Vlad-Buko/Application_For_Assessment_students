@@ -5,6 +5,11 @@ import com.andersen.project.exception.ValidationException;
 
 import java.util.List;
 
+/**
+ * Author Vladislav Domaniewski 24_99 (c)
+ * For company Andersen
+ */
+
 public interface StudentsService {
 
     StudentsDto saveStudents(StudentsDto studentsDto) throws ValidationException;

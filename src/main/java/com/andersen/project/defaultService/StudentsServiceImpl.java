@@ -5,17 +5,22 @@ import com.andersen.project.dto.StudentsDto;
 import com.andersen.project.entity.Students;
 import com.andersen.project.exception.ValidationException;
 import com.andersen.project.repository.StudentsRepository;
+import com.andersen.project.service.StudentsService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
-
 import static java.util.Objects.isNull;
+
+
+/**
+ * Author Vladislav Domaniewski 24_99 (c)
+ * For company Andersen
+ */
 
 @Service
 @AllArgsConstructor
-public class StudentsService implements com.andersen.project.service.StudentsService {
+public class StudentsServiceImpl implements StudentsService {
     private final StudentsRepository studentsRepository;
     private final StudentsConverter studentsConverter;
 

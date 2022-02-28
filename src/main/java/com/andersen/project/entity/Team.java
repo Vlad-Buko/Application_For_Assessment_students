@@ -6,6 +6,11 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * Author Vladislav Domaniewski 24_99 (c)
+ * For company Andersen
+ */
+
 @Table(name = "team")
 @Entity
 @Data
