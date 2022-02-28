@@ -4,6 +4,11 @@ import lombok.*;
 
 import javax.persistence.*;
 
+/**
+ * Author Vladislav Domaniewski 24_99 (c)
+ * For company Andersen
+ */
+
 @Entity
 @Data
 @Table(name = "students")
@@ -14,13 +19,11 @@ public class Students {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "name")
     private String name;
 
     @Column(name = "last")
     private String lastName;
 
-    @Column(name = "score")
     private String score;
 
     @ManyToOne(fetch = FetchType.LAZY)

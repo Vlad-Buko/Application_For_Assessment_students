@@ -4,6 +4,11 @@ import com.andersen.project.dto.StudentsDto;
 import com.andersen.project.entity.Students;
 import org.springframework.stereotype.Component;
 
+/**
+ * Author Vladislav Domaniewski 24_99 (c)
+ * For company Andersen
+ */
+
 @Component
 public class StudentsConverter {
     public Students fromStudentsDtoToStudents(StudentsDto studentsDto) {
@@ -12,6 +17,7 @@ public class StudentsConverter {
         students.setName(studentsDto.getName());
         students.setLastName(studentsDto.getLastName());
         students.setScore(studentsDto.getScore());
+        students.setTeam(studentsDto.getTeam());
         return students;
     }
 
@@ -21,6 +27,7 @@ public class StudentsConverter {
                 .name(students.getName())
                 .lastName(students.getLastName())
                 .score(students.getScore())
+                .team(students.getTeam())
                 .build();
     }
 }

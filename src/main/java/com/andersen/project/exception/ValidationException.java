@@ -1,5 +1,10 @@
 package com.andersen.project.exception;
 
+/**
+ * Author Vladislav Domaniewski 24_99 (c)
+ * For company Andersen
+ */
+
 public class ValidationException extends Exception {
     private String message;
 

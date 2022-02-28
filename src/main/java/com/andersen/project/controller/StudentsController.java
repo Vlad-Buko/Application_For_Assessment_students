@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Author Vladislav Domaniewski 24_99 (c)
+ * For company Andersen
+ */
+
 @RestController
 @RequestMapping("/students")
 @AllArgsConstructor

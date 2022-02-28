@@ -27,26 +27,32 @@
 
 </table>
 
+<table id="team">
+
+</table>
+
 <form action="#">
     <input id="student_name" placeholder="Student name">
     <input id="student_lastName" placeholder="Student Last name">
-    <input id="student_score" placeholder="Student score">
     <button onclick="createStudent()">Create Student</button>
-    <button onclick="randomChooseStudent()">Random</button>
+<!--    <button onclick="randomChooseStudent()">Random</button>-->
 </form>
 
 <script>
     function createStudent() {
         var studentName = document.getElementById("student_name").value;
         var studentLastName = document.getElementById("student_lastName").value;
-        var studentScore = document.getElementById("student_score").value;
 
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.open("POST", "http://localhost:8080/students/save");
         xmlhttp.setRequestHeader("Content-Type", "application/json");
-        xmlhttp.send(JSON.stringify({name: studentName, lastName: studentLastName, score: studentScore}));
+        xmlhttp.send(JSON.stringify({name: studentName, lastName: studentLastName}));
 
         loadStudents();
+    }
+
+    function loadTeam() {
+
     }
 
     function loadStudents() {
