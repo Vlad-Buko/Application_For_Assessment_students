@@ -15,7 +15,6 @@ public class TeamConverter {
         Team team = new Team();
         team.setId(teamDto.getId());
         team.setNameTeam(teamDto.getNameTeam());
-        team.setStudents(teamDto.getStudentsTeam());
         return team;
     }
 
@@ -23,7 +22,6 @@ public class TeamConverter {
         return TeamDto.builder()
                 .id(team.getId())
                 .nameTeam(team.getNameTeam())
-                .studentsTeam(team.getStudents())
                 .build();
     }
 }

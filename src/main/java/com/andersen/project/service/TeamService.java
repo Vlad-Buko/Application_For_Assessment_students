@@ -1,7 +1,6 @@
 package com.andersen.project.service;
 
 import com.andersen.project.dto.TeamDto;
-import com.andersen.project.exception.ValidationException;
 
 import java.util.List;
 
@@ -11,9 +10,7 @@ import java.util.List;
  */
 
 public interface TeamService {
-    TeamDto saveTeam(TeamDto teamDto) throws ValidationException;
-
-    void deleteTeam(Integer idTeam);
+    TeamDto saveTeam(TeamDto teamDto) ;
 
     List<TeamDto> findAll();
 }

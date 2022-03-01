@@ -1,41 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<table id="teamTable"></table>
+<table id="studentsTable"></table>
 <head>
+
     <meta charset="UTF-8">
-    <title>Hello</title>
+    <title>ApplicationForStudentAssessment</title>
+
     <style>
         table {
             font-family: arial, sans-serif;
             border-collapse: collapse;
-            width: 100%;
+            width: 60%;
         }
-
         td, th {
-            border: 1px solid #dedede;
+            border: 1px solid #25199a;
             text-align: left;
             padding: 8px;
         }
 
         tr:nth-child(even) {
-            background-color: #8383e0;
+            background-color: #7070cc;
         }
+
     </style>
 </head>
 <body>
-
-<table id="students">
-
-</table>
-
-<table id="team">
-
-</table>
 
 <form action="#">
     <input id="student_name" placeholder="Student name">
     <input id="student_lastName" placeholder="Student Last name">
     <button onclick="createStudent()">Create Student</button>
-<!--    <button onclick="randomChooseStudent()">Random</button>-->
+</form>
+
+<form action="#">
+    <input id="team_name" placeholder="Team name">
+    <button onclick="createTeam()">Create Team</button>
 </form>
 
 <script>
@@ -51,51 +52,76 @@
         loadStudents();
     }
 
-    function loadTeam() {
+    function createTeam() {
+        var teamNameFromHttp = document.getElementById("name_team").value;
 
+        var xmlhttpTeam = new XMLHttpRequest();
+        xmlhttpTeam.open("POST", "http://localhost:8080/teams/save");
+        xmlhttpTeam.setRequestHeader("Content-Type", "application/json");
+        xmlhttpTeam.send(JSON.stringify({nameTeam: teamNameFromHttp}));
+
+        loadTeam();
+    }
+
+    function loadTeam() {
+        var xhttpTeam = new XMLHttpRequest();
+        xhttpTeam.onreadystatechange = function () {
+            var team = JSON.parse(this.responseText);
+            var html = " ";
+            for (var i = 0; i < team.length; i++) {
+                var teams = team[i];
+                console.log(teams);
+                html = html + '<tr>' +
+                    '           <td>' + teams.nameTeam + '</td>\n' +
+                    '           <td><button onclick="DeleteTeam(' + teams.id + ')">Delete</button>' +
+                    '           <button onclick="AddStudent(' + teams.id + ')">Add student</button></td>';
+            }
+                document.getElementById("teamTable").innerHTML = html;
+        }
+        xhttpTeam.open("GET", "http://localhost:8080/teams/teamAll", true);
+        xhttpTeam.send();
     }
 
     function loadStudents() {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                var students = JSON.parse(this.responseText);
-                var html = '<tr>\n' +
-                    '    <th>Student id</th>\n' +
-                    '    <th>Name</th>\n' +
-                    '    <th>Last Name</th>\n' +
-                    '    <th>Score</th>\n' +
-                    '    <th></th>\n' +
-                    '    </tr>';
-                for (var i = 0; i < students.length; i++) {
-                    var student = students[i];
-                    console.log(student);
-                    html = html + '<tr>' +
-                        '           <td>' + student.id + '</td>' +
-                        '           <td>' + student.name + '</td>\n' +
-                        '           <td>' + student.lastName + '</td>\n' +
-                        '           <td>' + student.score + '</td>\n' +
-                        '           <td><button onclick="deleteStudent(' + student.id + ')">Delete</button></td>';
-                }
-                document.getElementById("students").innerHTML = html;
+            var students = JSON.parse(this.responseText);
+            var html = '<tr>\n' +
+                '    <th>Name</th>\n' +
+                '    <th>Last Name</th>\n' +
+                '    <th>Score</th>\n' +
+                '    </tr>';
+
+            for (var i = 0; i < students.length; i++) {
+                var student = students[i];
+                console.log(student);
+                html = html + '<tr>' +
+                    '           <td>' + student.name + '</td>\n' +
+                    '           <td>' + student.lastName + '</td>\n' +
+                    '           <td>' + student.score + '</td>\n' +
+                    '           <td><button onclick="plusBall(' + student.id + ')">+1</button>' +
+                    '           <button onclick="deleteStudent(' + student.id + ')">Delete</button></td>';
             }
-        };
-        xhttp.open("GET", "http://localhost:8080/students/findAll", true);
-        xhttp.send();
+                document.getElementById("studentsTable").innerHTML = html;
+        }
+            xhttp.open("GET", "http://localhost:8080/students/findAll", true);
+            xhttp.send();
     }
+
     function deleteStudent(studentId) {
         var xhttp = new XMLHttpRequest();
         xhttp.open("DELETE", "http://localhost:8080/students/delete/" + studentId, true);
         xhttp.send();
     }
 
-    function randomChooseStudent() {
-        var max = document.getElementById("sts")
-        let num = Math.random() * (max - min) + min;
-        //где min и max - минимальное и максимальное число необходимого диапазона
-        document.getElementById("id").innerHTML = num;
-        //где id - это id элемента, в который нужно вставить получившееся число
-    }
+    // function randomChooseStudent() {
+    //     var max = document.getElementById("sts")
+    //     let num = Math.random() * (max - min) + min;
+    //     //где min и max - минимальное и максимальное число необходимого диапазона
+    //     document.getElementById("id").innerHTML = num;
+    //     //где id - это id элемента, в который нужно вставить получившееся число
+    // }
+    loadTeam();
     loadStudents();
 </script>
 </body>

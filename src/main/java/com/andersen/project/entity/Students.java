@@ -19,11 +19,13 @@ public class Students {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column
     private String name;
 
     @Column(name = "last")
     private String lastName;
 
+    @Column
     private String score;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -1,5 +1,6 @@
 package com.andersen.project.controller;
 
+import com.andersen.project.dto.StudentsDto;
 import com.andersen.project.dto.TeamDto;
 import com.andersen.project.exception.ValidationException;
 import com.andersen.project.service.TeamService;
@@ -27,9 +28,10 @@ public class TeamController {
         return teamService.saveTeam(teamDto);
     }
 
-    @GetMapping("/allTeam")
+    @GetMapping("/teamAll")
     public List<TeamDto> findAllTeam() {
-        log.info("Handling find all team --");
+        log.info("Handling find team ");
         return teamService.findAll();
     }
+
 }
