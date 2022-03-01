@@ -17,7 +17,6 @@ public class StudentsConverter {
         students.setName(studentsDto.getName());
         students.setLastName(studentsDto.getLastName());
         students.setScore(studentsDto.getScore());
-        students.setTeam(studentsDto.getTeam());
         return students;
     }
 
@@ -27,7 +26,6 @@ public class StudentsConverter {
                 .name(students.getName())
                 .lastName(students.getLastName())
                 .score(students.getScore())
-                .team(students.getTeam())
                 .build();
     }
 }

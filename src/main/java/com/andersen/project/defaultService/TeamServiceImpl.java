@@ -25,16 +25,10 @@ public class TeamServiceImpl implements TeamService {
     private final TeamConverter teamConverter;
 
     @Override
-    public TeamDto saveTeam(TeamDto teamDto) throws ValidationException {
-        validateTeamDto(teamDto);
+    public TeamDto saveTeam(TeamDto teamDto)  {
         Team savedTeam =
                 teamRepostiry.save(teamConverter.fromTeamDtoToTeam(teamDto));
         return teamConverter.fromTeamToTeamDto(savedTeam);
-    }
-
-    @Override
-    public void deleteTeam(Integer idTeam) {
-
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.andersen.project.dto;
 
-import com.andersen.project.entity.Students;
 import lombok.Builder;
 import lombok.Data;
 
@@ -16,5 +15,4 @@ import java.util.List;
 public class TeamDto {
     private Integer id;
     private String nameTeam;
-    private List<Students> studentsTeam;
 }

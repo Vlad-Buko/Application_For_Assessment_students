@@ -17,12 +17,12 @@ import java.util.List;
 public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
     private int id;
 
-    @Column
+    @Column(name = "name_team")
     private String nameTeam;
 
-    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "team" , cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Students> students;
-
 }
