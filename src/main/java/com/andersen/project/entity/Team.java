@@ -22,6 +22,6 @@ public class Team {
     @Column(name = "name_team")
     private String nameTeam;
 
-//    @OneToMany(mappedBy = "team" , cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Students> students;
+    @OneToMany(mappedBy = "team" , cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Students> students;
 }

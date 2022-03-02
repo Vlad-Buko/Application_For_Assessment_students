@@ -19,7 +19,7 @@ public class Students {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @Column(name = "name")
     private String name;
 
     @Column(name = "last")
@@ -28,7 +28,7 @@ public class Students {
     @Column
     private int score;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "id_student")
-//    private Team team;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_team")
+    private Team team;
 }
