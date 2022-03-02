@@ -6,6 +6,7 @@ import com.andersen.project.exception.ValidationException;
 import com.andersen.project.service.TeamService;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,15 +24,27 @@ public class TeamController {
     private final TeamService teamService;
 
     @PostMapping("/save")
-    public TeamDto saveTeam(@RequestBody TeamDto teamDto) throws ValidationException {
+    public TeamDto saveTeam(@RequestBody TeamDto teamDto) throws
+            ValidationException {
         log.info("Handling save team " + teamDto);
         return teamService.saveTeam(teamDto);
     }
+
+//    @PostMapping("/save/student")
+//    public TeamDto
 
     @GetMapping("/teamAll")
     public List<TeamDto> findAllTeam() {
         log.info("Handling find team ");
         return teamService.findAll();
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteStudents(@PathVariable Integer id)
+    {
+        log.info("Handling delete team " + id);
+        teamService.deleteTeam(id);
+        return ResponseEntity.ok().build();
     }
 
 }

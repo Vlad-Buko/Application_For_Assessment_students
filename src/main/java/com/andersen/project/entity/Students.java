@@ -26,9 +26,9 @@ public class Students {
     private String lastName;
 
     @Column
-    private String score;
+    private int score;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_student")
-    private Team team;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "id_student")
+//    private Team team;
 }

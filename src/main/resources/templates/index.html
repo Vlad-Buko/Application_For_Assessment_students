@@ -25,17 +25,34 @@
         }
 
     </style>
+    <style>
+        #okno {
+            width: 300px;
+            height: 50px;
+            text-align: center;
+            padding: 15px;
+            border: 3px solid #0000cc;
+            border-radius: 10px;
+            color: #0000cc;
+            display: none;
+        }
+        #okno:target {display: block;}
+    </style>
 </head>
 <body>
 
-<form action="#">
-    <input id="student_name" placeholder="Student name">
-    <input id="student_lastName" placeholder="Student Last name">
-    <button onclick="createStudent()">Create Student</button>
-</form>
+<div id="okno">
+    <form>
+        <input id="student_name" placeholder="Student name">
+        <input id="student_lastName" placeholder="Student Last name">
+        <button onclick="createStudent()">Create Student</button>
+    </form>
+    <br>
+    <a href="#" class="close">Закрыть окно</a>
+</div>
 
 <form action="#">
-    <input id="team_name" placeholder="Team name">
+    <input id="name_team" placeholder="Team name">
     <button onclick="createTeam()">Create Team</button>
 </form>
 
@@ -73,8 +90,8 @@
                 console.log(teams);
                 html = html + '<tr>' +
                     '           <td>' + teams.nameTeam + '</td>\n' +
-                    '           <td><button onclick="DeleteTeam(' + teams.id + ')">Delete</button>' +
-                    '           <button onclick="AddStudent(' + teams.id + ')">Add student</button></td>';
+                    '           <td><button onclick="deleteTeam(' + teams.id + ')">Delete</button>' +
+                    '           <a href="#okno">Add student</a></td>';
             }
                 document.getElementById("teamTable").innerHTML = html;
         }
@@ -114,13 +131,11 @@
         xhttp.send();
     }
 
-    // function randomChooseStudent() {
-    //     var max = document.getElementById("sts")
-    //     let num = Math.random() * (max - min) + min;
-    //     //где min и max - минимальное и максимальное число необходимого диапазона
-    //     document.getElementById("id").innerHTML = num;
-    //     //где id - это id элемента, в который нужно вставить получившееся число
-    // }
+    function deleteTeam(teamId) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("DELETE", "http://localhost:8080/teams/delete/" + teamId, true);
+        xhttp.send();
+    }
     loadTeam();
     loadStudents();
 </script>
