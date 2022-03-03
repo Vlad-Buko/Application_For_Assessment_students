@@ -8,6 +8,7 @@ import com.andersen.project.repository.TeamRepostiry;
 import com.andersen.project.service.TeamService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import static java.util.Objects.isNull;
@@ -25,7 +26,8 @@ public class TeamServiceImpl implements TeamService {
     private final TeamConverter teamConverter;
 
     @Override
-    public TeamDto saveTeam(TeamDto teamDto)  {
+    public TeamDto saveTeam(TeamDto teamDto) throws ValidationException  {
+        validateTeamDto(teamDto);
         Team savedTeam =
                 teamRepostiry.save(teamConverter.fromTeamDtoToTeam(teamDto));
         return teamConverter.fromTeamToTeamDto(savedTeam);
@@ -43,5 +45,10 @@ public class TeamServiceImpl implements TeamService {
         if (isNull(teamDto)) {
             throw new ValidationException("Object team is null");
         }
+    }
+
+    @Override
+    public void deleteTeam(Integer teamId) {
+        teamRepostiry.deleteById(teamId);
     }
 }

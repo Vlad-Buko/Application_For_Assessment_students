@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.util.List;
 
+
 /**
  * Author Vladislav Domaniewski 24_99 (c)
  * For company Andersen
@@ -15,4 +16,5 @@ import java.util.List;
 public class TeamDto {
     private Integer id;
     private String nameTeam;
+    private List<StudentsDto> studentsDto;
 }

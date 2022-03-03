@@ -19,16 +19,16 @@ public class Students {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @Column(name = "name")
     private String name;
 
     @Column(name = "last")
     private String lastName;
 
     @Column
-    private String score;
+    private int score;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_student")
+    @JoinColumn(name = "id_team")
     private Team team;
 }
