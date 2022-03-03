@@ -5,6 +5,7 @@ import com.andersen.project.dto.StudentsDto;
 import com.andersen.project.entity.Students;
 import com.andersen.project.exception.ValidationException;
 import com.andersen.project.repository.StudentsRepository;
+import com.andersen.project.repository.TeamRepostiry;
 import com.andersen.project.service.StudentsService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ import static java.util.Objects.isNull;
 @AllArgsConstructor
 public class StudentsServiceImpl implements StudentsService {
     private final StudentsRepository studentsRepository;
+    private final TeamRepostiry teamRepostiry;
     private final StudentsConverter studentsConverter;
 
     @Override

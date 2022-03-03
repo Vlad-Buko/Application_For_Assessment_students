@@ -1,6 +1,5 @@
 package com.andersen.project.controller;
 
-import com.andersen.project.dto.StudentsDto;
 import com.andersen.project.dto.TeamDto;
 import com.andersen.project.exception.ValidationException;
 import com.andersen.project.service.TeamService;
@@ -16,9 +15,9 @@ import java.util.List;
  * For company Andersen
  */
 
-@RestController
 @RequestMapping("/teams")
 @Log
+@RestController
 @AllArgsConstructor
 public class TeamController {
     private final TeamService teamService;
@@ -29,9 +28,6 @@ public class TeamController {
         log.info("Handling save team " + teamDto);
         return teamService.saveTeam(teamDto);
     }
-
-//    @PostMapping("/save/student")
-//    public TeamDto
 
     @GetMapping("/teamAll")
     public List<TeamDto> findAllTeam() {

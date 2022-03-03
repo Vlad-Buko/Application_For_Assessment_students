@@ -25,31 +25,8 @@
         }
 
     </style>
-    <style>
-        #okno {
-            width: 244px;
-            height: 100px;
-            text-align: center;
-            padding: 10px;
-            border: 3px solid #0000cc;
-            border-radius: 14px;
-            color: #0000cc;
-            display: none;
-        }
-        #okno:target {display: block;}
-    </style>
 </head>
 <body>
-
-<div id="okno">
-    <form>
-        <a href="#" class="close">Закрыть окно</a>
-        <a>Inter please base student!</a><br>
-        <input id="student_name" placeholder="Student name">
-        <input id="student_lastName" placeholder="Student Last name">
-        <br><br><button onclick="createStudent()">Create Student</button></br>
-    </form>
-</div>
 
 <form action="#">
     <input id="name_team" placeholder="Team name">
@@ -57,16 +34,69 @@
 </form>
 
 <script>
-    function createStudent() {
+
+    function loadTeam() {
+        var xhttpTeam = new XMLHttpRequest();
+
+        xhttpTeam.onreadystatechange = function () {
+            var team = JSON.parse(this.responseText);
+            var html = " ";
+            for (var i = 0; i < team.length; i++) {
+                var teams = team[i];
+                console.log(teams);
+                html = html + '<tr>' +
+                    '           <td>' + teams.nameTeam + '</td>\n' +
+                    '           <td><button onclick="deleteTeam(' + teams.id + ')">Delete</button>' +
+                    '           <input id="student_name" placeholder="Student name">' +
+                    '           <input id="student_lastName" placeholder="Student Lastname">' +
+                    '           <button onclick="createStudent(' + teams.id + ')">Add student</button></td>';
+            }
+                    var yhttp = new XMLHttpRequest();
+                        var students = JSON.parse(this.responseText);
+                        var htmlStudents = " ";
+                        for (var k = 0; k < students.length; k++) {
+                            var student = students[k];
+                            console.log(student);
+                            htmlStudents = htmlStudents + '<tr>' +
+                                '           <td>' + student.name + '</td>\n' +
+                                '           <td>' + student.lastName + '</td>\n' +
+                                '           <td>' + student.score + '</td>\n' +
+                                '           <td><button onclick="plusBall(' + student.id + ')">+1</button>' +
+                                '           <button onclick="deleteStudent(' + student.id + ')">Delete</button></td>';
+                            yhttp.open("GET", "http://localhost:8080/students/findAll", true);
+                            yhttp.send();
+                            document.getElementById("studentsTable").innerHTML = htmlStudents;
+
+                        }
+
+                }
+
+            document.getElementById("teamTable").innerHTML = html;
+        }
+        xhttpTeam.open("GET", "http://localhost:8080/teams/teamAll", true);
+        xhttpTeam.send();
+    }
+
+    function deleteStudent(studentId) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("DELETE", "http://localhost:8080/students/delete/" + studentId, true);
+        xhttp.send();
+    }
+
+    function deleteTeam(teamId) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("DELETE", "http://localhost:8080/teams/delete/" + teamId, true);
+        xhttp.send();
+    }
+    function createStudent(teamId) {
+
         var studentName = document.getElementById("student_name").value;
         var studentLastName = document.getElementById("student_lastName").value;
-
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.open("POST", "http://localhost:8080/students/save");
         xmlhttp.setRequestHeader("Content-Type", "application/json");
-        xmlhttp.send(JSON.stringify({name: studentName, lastName: studentLastName}));
-
-        loadStudents();
+        xmlhttp.send(JSON.stringify({id: teamId, name: studentName, lastName: studentLastName}));
+        loadTeam();
     }
 
     function createTeam() {
@@ -80,67 +110,8 @@
         loadTeam();
     }
 
-    function loadTeam() {
-        var xhttpTeam = new XMLHttpRequest();
-        xhttpTeam.onreadystatechange = function () {
-            var team = JSON.parse(this.responseText);
-            var html = " ";
-            for (var i = 0; i < team.length; i++) {
-                var teams = team[i];
-                console.log(teams);
-                html = html + '<tr>' +
-                    '           <td>' + teams.nameTeam + '</td>\n' +
-                    '           <td><button onclick="deleteTeam(' + teams.id + ')">Delete</button>' +
-                    '           <a href="#okno">Add student</a></td>';
-            }
-                document.getElementById("teamTable").innerHTML = html;
-        }
-        xhttpTeam.open("GET", "http://localhost:8080/teams/teamAll", true);
-        xhttpTeam.send();
-    }
-
-    function loadStudents() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            var students = JSON.parse(this.responseText);
-            var html = '<tr>\n' +
-                '    <th>Name</th>\n' +
-                '    <th>Last Name</th>\n' +
-                '    <th>Score</th>\n' +
-                '    </tr>';
-
-            for (var i = 0; i < students.length; i++) {
-                var student = students[i];
-                console.log(student);
-                html = html + '<tr>' +
-                    '           <td>' + student.name + '</td>\n' +
-                    '           <td>' + student.lastName + '</td>\n' +
-                    '           <td>' + student.score + '</td>\n' +
-                    '           <td><button onclick="plusBall(' + student.id + ')">+1</button>' +
-                    '           <button onclick="deleteStudent(' + student.id + ')">Delete</button></td>';
-            }
-                document.getElementById("studentsTable").innerHTML = html;
-        }
-            xhttp.open("GET", "http://localhost:8080/students/findAll", true);
-            xhttp.send();
-    }
-
-
-    function deleteStudent(studentId) {
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("DELETE", "http://localhost:8080/students/delete/" + studentId, true);
-        xhttp.send();
-    }
-
-    function deleteTeam(teamId) {
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("DELETE", "http://localhost:8080/teams/delete/" + teamId, true);
-        xhttp.send();
-    }
-
 
     loadTeam();
-    loadStudents();
 </script>
 </body>
 </html>

@@ -1,9 +1,11 @@
 package com.andersen.project.controller;
 
 import com.andersen.project.dto.StudentsDto;
+import com.andersen.project.dto.TeamDto;
 import com.andersen.project.entity.Students;
 import com.andersen.project.exception.ValidationException;
 import com.andersen.project.service.StudentsService;
+import com.andersen.project.service.TeamService;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.http.ResponseEntity;
@@ -16,19 +18,23 @@ import java.util.List;
  * For company Andersen
  */
 
-@RestController
 @RequestMapping("/students")
 @AllArgsConstructor
+@RestController
 @Log
 public class StudentsController {
 
     private final StudentsService studentsService;
+    private final TeamService teamService;
 
     @PostMapping("/save")
-    public StudentsDto saveStudent(@RequestBody StudentsDto studentsDto) throws
+    public void saveStudent(@RequestBody StudentsDto studentsDto
+//                            @RequestBody TeamDto teamDto
+                         ) throws
             ValidationException {
+//        System.out.println(teamDto.getId());
         log.info("Handling save - " + studentsDto);
-        return studentsService.saveStudents(studentsDto);
+        studentsService.saveStudents(studentsDto);
     }
 
     @GetMapping("/findAll")
@@ -44,5 +50,7 @@ public class StudentsController {
         studentsService.deleteStudent(id);
         return ResponseEntity.ok().build();
     }
+
+
 
 }

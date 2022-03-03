@@ -15,5 +15,4 @@ public class StudentsDto {
     private String name;
     private String lastName;
     private int score;
-    private TeamDto teamDto;
 }
