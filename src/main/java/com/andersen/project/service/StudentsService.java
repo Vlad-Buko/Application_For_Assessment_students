@@ -18,4 +18,6 @@ public interface StudentsService {
     void deleteStudent(Integer studentsId);
 
     List<StudentsDto> findAll();
+
+    List<StudentsDto> addScore(Integer score);
 }

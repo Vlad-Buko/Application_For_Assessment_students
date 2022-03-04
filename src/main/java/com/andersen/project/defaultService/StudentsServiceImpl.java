@@ -3,6 +3,7 @@ package com.andersen.project.defaultService;
 import com.andersen.project.converter.StudentsConverter;
 import com.andersen.project.dto.StudentsDto;
 import com.andersen.project.entity.Students;
+import com.andersen.project.entity.Team;
 import com.andersen.project.exception.ValidationException;
 import com.andersen.project.repository.StudentsRepository;
 import com.andersen.project.repository.TeamRepostiry;
@@ -23,7 +24,6 @@ import static java.util.Objects.isNull;
 @AllArgsConstructor
 public class StudentsServiceImpl implements StudentsService {
     private final StudentsRepository studentsRepository;
-    private final TeamRepostiry teamRepostiry;
     private final StudentsConverter studentsConverter;
 
     @Override
@@ -32,6 +32,17 @@ public class StudentsServiceImpl implements StudentsService {
         Students savedStudent =
                 studentsRepository.save(studentsConverter.fromStudentsDtoToStudents(studentsDto));
         return studentsConverter.fromStudentsToStudentsDto(savedStudent);
+    }
+
+    @Override
+    public List<StudentsDto> addScore(Integer idStudent) {
+        StudentsDto studentsDto;
+        Students studentId = studentsRepository.getById(idStudent);
+        studentId.setScore(+1);
+        return studentsRepository.findAll()
+                .stream()
+                .map(studentsConverter::fromStudentsToStudentsDto)
+                .collect(Collectors.toList());
     }
 
     private void validateStudentsDto(StudentsDto studentsDto) throws ValidationException {
