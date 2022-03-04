@@ -43,9 +43,13 @@ public class StudentsController {
         return studentsService.findAll();
     }
 
+    @PostMapping("/upperBall/{id}")
+    public List<StudentsDto> upBallStudent(@PathVariable Integer id){
+        return studentsService.addScore(id);
+    }
+
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteStudents(@PathVariable Integer id)
-    {
+    public ResponseEntity<Void> deleteStudents(@PathVariable Integer id){
         log.info("Handling delete - " + id);
         studentsService.deleteStudent(id);
         return ResponseEntity.ok().build();

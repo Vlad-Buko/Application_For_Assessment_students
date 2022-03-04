@@ -1,5 +1,6 @@
 package com.andersen.project.repository;
 
+import com.andersen.project.entity.Students;
 import com.andersen.project.entity.Team;
 import org.springframework.data.jpa.repository.JpaRepository;
 
